@@ -69,21 +69,23 @@ func manageConnection(s *net.UDPConn, i string, clientes int) {
 	if err != nil {
 		fmt.Println(err)
 	}
+	
+	writer := bufio.NewWriter(f)
 
 	paquetes := 0
 
 	start := time.Now()
-	kill := time.Now().Add(240 * time.Second)
+	kill := time.Now().Add(24 * time.Second)
+	kill2 := time.Now().Add(240 * time.Second)
 	s.SetDeadline(kill)
-	for boolean && time.Now().Before(kill){
-		writer := bufio.NewWriter(f)
+	for boolean && time.Now().Before(kill2){
 		buffer := make([]byte, 1024)
 		n, _, err := s.ReadFromUDP(buffer)
 		if err != nil {
 			fmt.Println(err)
 			break
 		}
-		nn, err := writer.Write(buffer[0:n])
+		nn, err := writer.Write(buffer[:n])
 		if err != nil {
 			fmt.Println(err)
 			break
@@ -91,15 +93,14 @@ func manageConnection(s *net.UDPConn, i string, clientes int) {
 		if n != 1024 || nn != 1024{
 			boolean = false
 		}
-		err = writer.Flush()
-		if err != nil {
-			fmt.Println(err)
-			break
-		}
 		paquetes++
-		time.Sleep(25)
+		time.Sleep(22)
 	}
-	fmt.Println('0')
+	err = writer.Flush()
+	if err != nil {
+		fmt.Println(err)
+		break
+	}
 	t := time.Now()
 	f.Close()
 	f1, err := os.Open("ArchivosRecibidos/Cliente" + i + "-Prueba-" + strconv.Itoa(clientes) + ".txt")
