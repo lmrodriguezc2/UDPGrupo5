@@ -99,7 +99,6 @@ func manageConnection(s *net.UDPConn, i string, clientes int) {
 	err = writer.Flush()
 	if err != nil {
 		fmt.Println(err)
-		break
 	}
 	t := time.Now()
 	f.Close()

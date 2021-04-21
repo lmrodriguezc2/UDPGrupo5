@@ -1,0 +1,6 @@
+Se recibe el archivo: ArchivosRecibidos/Cliente3-Prueba-5.txt
+De tamaño: 2882816
+Archivo entregado correctamente: no
+Tiempo: 3.8254656s
+Cantidad de paquetes: 2629
+Bytes enviados: 2882816

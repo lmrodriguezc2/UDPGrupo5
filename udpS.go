@@ -26,7 +26,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	f1, err := os.Open("file-" + i + ".txt")
+	f, err := os.Open("file-" + FILE + ".txt")
 	h := md5.New()
 	if _, err := io.Copy(h, f); err != nil {
 		log.Fatal(err)
